@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,14 +8,14 @@ using System.Xml.Linq;
 
 namespace Lab_6
 {
-    internal class Blue_4
+    public class Blue_4
     {
         public struct Team
         {
             private string _name;
             private int[] _scores;
-            public string name { get { return _name; } }
-            public int[] scores 
+            public string Name { get { return _name; } }
+            public int[] Scores 
             { 
                 get 
                 {
@@ -23,7 +23,7 @@ namespace Lab_6
                     return _scores; 
                 } 
             }
-            public int totalscore
+            public int TotalScore
             {
                 get
                 {
@@ -53,7 +53,7 @@ namespace Lab_6
             }
             public void Print()
             {
-                Console.WriteLine($"{name} {totalscore}");
+                Console.WriteLine($"{Name} {TotalScore}");
             }
             
         }
@@ -62,8 +62,8 @@ namespace Lab_6
             private string _name;
             private Team[] _teams;
             private int indexer;
-            public string name { get { return _name; } }
-            public Team[] teams { get { return _teams; } }
+            public string Name { get { return _name; } }
+            public Team[] Teams { get { return _teams; } }
             public Group(string name)
             {
                 _name = name;
@@ -94,7 +94,7 @@ namespace Lab_6
                 {
                     for (int j = 0; j < _teams.Length - i - 1; j++)
                     {
-                        if (_teams[j].totalscore < _teams[j + 1].totalscore)
+                        if (_teams[j].TotalScore < _teams[j + 1].TotalScore)
                         {
                             Team temp = _teams[j];
                             _teams[j] = _teams[j + 1];
@@ -110,28 +110,28 @@ namespace Lab_6
                 int j = 0;
                 while (i < size / 2 && j < size / 2)
                 {
-                    if (group1.teams[i].totalscore >= group2.teams[j].totalscore)
+                    if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore)
                     {
-                        group.Add(group1.teams[i++]);
+                        group.Add(group1.Teams[i++]);
                     }
                     else
                     {
-                        group.Add(group2.teams[j++]);
+                        group.Add(group2.Teams[j++]);
                     }
                 }
                 while (i < size / 2)
                 {
-                    group.Add(group1.teams[i++]);
+                    group.Add(group1.Teams[i++]);
                 }
                 while (j < size / 2)
                 {
-                    group.Add(group2.teams[j++]);
+                    group.Add(group2.Teams[j++]);
                 }
                 return group;
             }
             public void Print()
             {
-                Console.WriteLine($"{name}");
+                Console.WriteLine($"{Name}");
                 for (int i = 0; i < indexer; i++)
                 {
                     _teams[i].Print();
