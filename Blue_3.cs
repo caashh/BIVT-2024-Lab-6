@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,7 @@ namespace Lab_6
             private string _name;
             private string _surname;
             private int[] _penaltypimes;
-            
+
             public string Name { get { return _name; } }
             public string Surname { get { return _surname; } }
             public int[] PenaltyTimes
@@ -22,7 +22,7 @@ namespace Lab_6
                 {
                     if (_penaltypimes == null) return null;
                     int[] penaltypimes = new int[_penaltypimes.Length];
-                    foreach (int i in _penaltypimes)
+                    for (int i = 0; i < _penaltypimes.Length; i++)
                     {
                         penaltypimes[i] = _penaltypimes[i];
                     }
@@ -33,8 +33,9 @@ namespace Lab_6
             {
                 get
                 {
+                    if (_penaltypimes == null || _penaltypimes.Length == 0) return 0;
                     int _totaltime = 0;
-                    foreach (int i in _penaltypimes)
+                    foreach (var i in _penaltypimes)
                     {
                         _totaltime += i;
                     }
@@ -45,14 +46,14 @@ namespace Lab_6
             {
                 get
                 {
-                    foreach (int i in _penaltypimes)
+                    foreach (var i in _penaltypimes)
                     {
-                        if (i >= 10) return false;
+                        if (i == 10) return true;
                     }
-                    return true;
+                    return false;
                 }
             }
-            public Participant (string name, string surname)
+            public Participant(string name, string surname)
             {
                 _name = name;
                 _surname = surname;
@@ -60,12 +61,13 @@ namespace Lab_6
             }
             public void PlayMatch(int time)
             {
-                int[]new_penalty = new int[_penaltypimes.Length + 1];
-                for (int i = 0; i < _penaltypimes.Length; i++)
+                if (_penaltypimes == null) return;
+                int[] new_penalty = new int[_penaltypimes.Length + 1];
+                for (int i = 0; i < new_penalty.Length - 1; i++)
                 {
                     new_penalty[i] = _penaltypimes[i];
                 }
-                new_penalty[_penaltypimes.Length] = time;
+                new_penalty[new_penalty.Length - 1] = time;
                 _penaltypimes = new_penalty;
             }
 
@@ -88,7 +90,7 @@ namespace Lab_6
 
             public void Print()
             {
-                Console.WriteLine($"{Name},{Surname},{PenaltyTimes},{IsExpelled}");
+                Console.WriteLine($"{_name},{_surname},{TotalTime},{IsExpelled}");
             }
         }
     }
