@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab_6
 {
-    public class Blue_5
+    internal class Blue_5
     {
         public struct Sportsman
         {
@@ -34,7 +34,7 @@ namespace Lab_6
             {
                 Console.WriteLine($"{Name} {Surname} {Place}");
             }
-            
+
         }
         public struct Team
         {
@@ -50,9 +50,12 @@ namespace Lab_6
                 {
                     if (_sportsmen == null || _sportsmen.Length == 0) return 0;
                     int summaryscore = 0;
-                    for (int i = 0; i < _sportsmen.Length; i++)
+                    for (int i = 0; i < indexer; i++)
                     {
-                        if (_sportsmen[i].Place <= 5) { summaryscore += (6 - _sportsmen[i].Place); }
+                        if (_sportsmen[i].Place > 0 && _sportsmen[i].Place <= 5)
+                        {
+                            summaryscore += (6 - _sportsmen[i].Place);
+                        }
                     }
                     return summaryscore;
                 }
@@ -62,12 +65,15 @@ namespace Lab_6
                 get
                 {
                     if (_sportsmen == null || _sportsmen.Length == 0) return 0;
-                    int topplace = 18;
-                    for (int i = 0; i < _sportsmen.Length; i++)
+                    int topplace = int.MaxValue;
+                    for (int i = 0; i < indexer; i++)
                     {
-                        if (_sportsmen[i].Place < topplace) { topplace = _sportsmen[i].Place; }
+                        if (_sportsmen[i].Place > 0 && _sportsmen[i].Place < topplace)
+                        {
+                            topplace = _sportsmen[i].Place;
+                        }
                     }
-                    return topplace;
+                    return topplace == int.MaxValue ? 0 : topplace;
                 }
             }
             public Team(string name)
