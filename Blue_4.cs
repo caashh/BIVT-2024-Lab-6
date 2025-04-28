@@ -27,6 +27,7 @@ namespace Lab_6
             {
                 get
                 {
+                    if (_scores == null) return 0;
                     int s = 0;
                     foreach (int x in  _scores)
                     {
@@ -72,13 +73,13 @@ namespace Lab_6
             }
             public void Add(Team team)
             {
-                if (_teams == null || _teams.Length == 0 || indexer >= _teams.Length) return;
+                if (_teams == null || indexer >= _teams.Length) return;
                 _teams[indexer] = team;
                 indexer++;
             }
             public void Add(Team[] teams)
             {
-                if (teams == null || teams.Length == 0 || _teams == null || _teams.Length == 0 || indexer >= _teams.Length) return;
+                if (teams == null || teams.Length == 0 || _teams == null || indexer >= _teams.Length) return;
                 int i = 0;
                 while (indexer < _teams.Length && i < teams.Length)
                 {
