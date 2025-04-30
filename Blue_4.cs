@@ -106,7 +106,6 @@ namespace Lab_6
                 int j = 0;
                 int count = 0;
                 
-                // First sort both groups
                 group1.Sort();
                 group2.Sort();
 
