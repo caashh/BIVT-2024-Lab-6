@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab_6
 {
-    internal class Blue_5
+    public class Blue_5
     {
         public struct Sportsman
         {
@@ -34,8 +34,8 @@ namespace Lab_6
             {
                 Console.WriteLine($"{Name} {Surname} {Place}");
             }
-
         }
+
         public struct Team
         {
             private string _name;
@@ -48,7 +48,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null || _sportsmen.Length == 0) return 0;
+                    if (_sportsmen == null || indexer == 0) return 0;
                     int summaryscore = 0;
                     for (int i = 0; i < indexer; i++)
                     {
@@ -64,7 +64,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null || _sportsmen.Length == 0) return 0;
+                    if (_sportsmen == null || indexer == 0) return 0;
                     int topplace = int.MaxValue;
                     for (int i = 0; i < indexer; i++)
                     {
@@ -84,18 +84,20 @@ namespace Lab_6
             }
             public void Add(Sportsman sportsman)
             {
-                if (_sportsmen == null || _sportsmen.Length == 0 || indexer >= _sportsmen.Length) return;
-                _sportsmen[indexer++] = sportsman;
+                if (indexer < _sportsmen.Length)
+                {
+                    _sportsmen[indexer++] = sportsman;
+                }
             }
             public void Add(Sportsman[] sportsmen)
             {
-                if (sportsmen == null || sportsmen.Length == 0 || _sportsmen == null || _sportsmen.Length == 0 || indexer >= _sportsmen.Length) return;
-                int i = 0;
-                while (indexer < _sportsmen.Length && i < sportsmen.Length)
+                if (sportsmen == null) return;
+                foreach (var sportsman in sportsmen)
                 {
-                    _sportsmen[indexer] = sportsmen[i];
-                    i++;
-                    indexer++;
+                    if (indexer < _sportsmen.Length)
+                    {
+                        _sportsmen[indexer++] = sportsman;
+                    }
                 }
             }
             public static void Sort(Team[] teams)
@@ -115,7 +117,7 @@ namespace Lab_6
                         {
                             Team temp = teams[j];
                             teams[j] = teams[j + 1];
-                            teams[j + 1] = temp; ;
+                            teams[j + 1] = temp;
                         }
                     }
                 }
@@ -123,7 +125,10 @@ namespace Lab_6
             public void Print()
             {
                 Console.WriteLine(_name);
-                for (int i = 0; i < indexer; i++) { _sportsmen[i].Print(); }
+                for (int i = 0; i < indexer; i++)
+                {
+                    _sportsmen[i].Print();
+                }
             }
         }
     }
