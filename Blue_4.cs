@@ -13,14 +13,14 @@ namespace Lab_6
         public struct Team
         {
             private string _name;
-            private int[] _scores;
+            private List<int> _scores;
             public string Name { get { return _name; } }
             public int[] Scores 
             { 
                 get 
                 {
-                    if (_scores == null) return null;
-                    return _scores; 
+                    if (_scores == null) return new int[0];
+                    return _scores.ToArray(); 
                 } 
             }
             public int TotalScore
@@ -28,43 +28,39 @@ namespace Lab_6
                 get
                 {
                     if (_scores == null) return 0;
-                    int s = 0;
-                    foreach (int x in  _scores)
-                    {
-                        s += x;
-                    }
-                    return s;
+                    return _scores.Sum();
                 }
             }
-            public Team (string name)
+            public Team(string name)
             {
                 _name = name;
-                _scores = new int[0];
+                _scores = new List<int>();
             }
             public void PlayMatch(int result)
             {
-                if (_scores == null) return;
-                int[] newscores = new int[_scores.Length + 1];
-                newscores[newscores.Length - 1] = result;
-                for(int i = 0; i  < _scores.Length; i++)
-                {
-                    newscores[i] = _scores[i];
-                }
-                _scores = newscores;
+                if (_scores == null) _scores = new List<int>();
+                _scores.Add(result);
             }
             public void Print()
             {
                 Console.WriteLine($"{Name} {TotalScore}");
             }
-            
         }
+
         public struct Group
         {
             private string _name;
             private Team[] _teams;
             private int indexer;
             public string Name { get { return _name; } }
-            public Team[] Teams { get { return _teams; } }
+            public Team[] Teams 
+            { 
+                get 
+                {
+                    if (_teams == null) return new Team[0];
+                    return _teams.Take(indexer).ToArray();
+                } 
+            }
             public Group(string name)
             {
                 _name = name;
@@ -74,26 +70,25 @@ namespace Lab_6
             public void Add(Team team)
             {
                 if (_teams == null || indexer >= _teams.Length) return;
-                _teams[indexer] = team;
-                indexer++;
+                _teams[indexer++] = team;
             }
             public void Add(Team[] teams)
             {
-                if (teams == null || teams.Length == 0 || _teams == null || indexer >= _teams.Length) return;
-                int i = 0;
-                while (indexer < _teams.Length && i < teams.Length)
+                if (teams == null || teams.Length == 0 || _teams == null) return;
+                foreach (var team in teams)
                 {
-                    _teams[indexer] = teams[i];
-                    i++;
-                    indexer++;
+                    if (indexer < _teams.Length)
+                    {
+                        _teams[indexer++] = team;
+                    }
                 }
             }
             public void Sort()
             {
-                if (_teams == null || _teams.Length == 0) return;
-                for (int i = 0; i < _teams.Length; i++)
+                if (_teams == null || indexer == 0) return;
+                for (int i = 0; i < indexer - 1; i++)
                 {
-                    for (int j = 0; j < _teams.Length - i - 1; j++)
+                    for (int j = 0; j < indexer - i - 1; j++)
                     {
                         if (_teams[j].TotalScore < _teams[j + 1].TotalScore)
                         {
@@ -109,7 +104,13 @@ namespace Lab_6
                 Group group = new Group("Финалисты");
                 int i = 0;
                 int j = 0;
-                while (i < size / 2 && j < size / 2)
+                int count = 0;
+                
+                // First sort both groups
+                group1.Sort();
+                group2.Sort();
+
+                while (i < group1.indexer && j < group2.indexer && count < size)
                 {
                     if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore)
                     {
@@ -119,15 +120,21 @@ namespace Lab_6
                     {
                         group.Add(group2.Teams[j++]);
                     }
+                    count++;
                 }
-                while (i < size / 2)
+
+                while (i < group1.indexer && count < size)
                 {
                     group.Add(group1.Teams[i++]);
+                    count++;
                 }
-                while (j < size / 2)
+
+                while (j < group2.indexer && count < size)
                 {
                     group.Add(group2.Teams[j++]);
+                    count++;
                 }
+
                 return group;
             }
             public void Print()
