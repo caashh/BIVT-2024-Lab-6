@@ -73,7 +73,7 @@ namespace Lab_6
                             topplace = _sportsmen[i].Place;
                         }
                     }
-                    return topplace == int.MaxValue ? 0 : topplace;
+                    return topplace == int.MaxValue ? 18 : topplace;
                 }
             }
             public Team(string name)
