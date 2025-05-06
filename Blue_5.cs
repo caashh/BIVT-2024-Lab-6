@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static Lab_6.Blue_5;
 
 namespace Lab_6
 {
@@ -64,7 +65,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null || indexer == 0) return 0;
+                    if (_sportsmen == null) return 0;
                     int topplace = int.MaxValue;
                     for (int i = 0; i < indexer; i++)
                     {
@@ -73,7 +74,7 @@ namespace Lab_6
                             topplace = _sportsmen[i].Place;
                         }
                     }
-                    return topplace == int.MaxValue ? 18 : topplace;
+                    return topplace == int.MaxValue ? 0 : topplace;
                 }
             }
             public Team(string name)
@@ -84,6 +85,7 @@ namespace Lab_6
             }
             public void Add(Sportsman sportsman)
             {
+                if (_sportsmen == null) return;
                 if (indexer < _sportsmen.Length)
                 {
                     _sportsmen[indexer++] = sportsman;
@@ -91,7 +93,7 @@ namespace Lab_6
             }
             public void Add(Sportsman[] sportsmen)
             {
-                if (sportsmen == null) return;
+                if (_sportsmen == null || _sportsmen.Length == 0) return;
                 foreach (var sportsman in sportsmen)
                 {
                     if (indexer < _sportsmen.Length)
