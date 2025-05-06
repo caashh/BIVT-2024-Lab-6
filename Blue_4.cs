@@ -20,7 +20,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_scores == null) return new int[0];
+                    if (_scores == null) return null;
                     int[] result = new int[_scoresCount];
                     Array.Copy(_scores, result, _scoresCount);
                     return result;
@@ -43,22 +43,21 @@ namespace Lab_6
             public Team(string name)
             {
                 _name = name;
-                _scores = null;
+                _scores = new int[0];
                 _scoresCount = 0;
             }
 
             public void PlayMatch(int result)
             {
-                if (_scores == null) _scores = new int[10];
+                if (_scores == null) return;
 
-                if (_scoresCount >= _scores.Length)
+                int[] newscores = new int [_scores.Length + 1];
+                for(int i = 0; i < _scores.Length; i++)
                 {
-                    int[] newScores = new int[_scores.Length * 2];
-                    Array.Copy(_scores, newScores, _scoresCount);
-                    _scores = newScores;
+                    newscores[i] = _scores[i];
                 }
-
-                _scores[_scoresCount++] = result;
+                newscores[newscores.Length - 1] = result;
+                _scores = newscores;
             }
 
             public void Print()
@@ -88,16 +87,12 @@ namespace Lab_6
             public Group(string name)
             {
                 _name = name;
-                _teams = null;
+                _teams = new Team[12];
                 _teamsCount = 0;
             }
 
             public void Add(Team team)
             {
-                if (_teams == null)
-                {
-                    _teams = new Team[12]; 
-                }
                 if (_teams == null || _teamsCount < 0 || _teamsCount >= _teams.Length) return;
                 _teams[_teamsCount++] = team;
             }
