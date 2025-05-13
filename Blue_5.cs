@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using static Lab_6.Blue_5;
 
 namespace Lab_6
 {
@@ -49,14 +47,36 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null || indexer == 0) return 0;
+                    if (_sportsmen == null) return 0;
                     int summaryscore = 0;
-                    for (int i = 0; i < indexer; i++)
+                    foreach (var sportsman in _sportsmen)
                     {
-                        if (_sportsmen[i].Place > 0 && _sportsmen[i].Place <= 5)
+                        if (sportsman.Place == 1)
                         {
-                            summaryscore += (6 - _sportsmen[i].Place);
+                            summaryscore += 5;
+                            break;
                         }
+                        else if (sportsman.Place == 2)
+                        {
+                            summaryscore += 4;
+                            break;
+                        }
+                        else if (sportsman.Place == 3)
+                        {
+                            summaryscore += 3;
+                            break;
+                        }
+                        else if (sportsman.Place == 4)
+                        {
+                            summaryscore += 2;
+                            break;
+                        }
+                        else if (sportsman.Place == 5)
+                        {
+                            summaryscore += 1;
+                            break;
+                        }
+                        else break;
                     }
                     return summaryscore;
                 }
