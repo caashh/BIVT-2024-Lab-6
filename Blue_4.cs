@@ -98,7 +98,7 @@ namespace Lab_6
             public void Add(Team[] teams)
             {
                 
-                if (teams == null  _teams == null  teams.Length == 0) return;
+                if (teams == null || _teams == null || teams.Length == 0) return;
 
                 int count = 0;
                 while (_teamsCount < _teams.Length && count < teams.Length)
