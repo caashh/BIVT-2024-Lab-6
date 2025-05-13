@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Lab_6
 {
     public class Blue_4
@@ -51,8 +49,8 @@ namespace Lab_6
             {
                 if (_scores == null) return;
 
-                int[] newscores = new int [_scores.Length + 1];
-                for(int i = 0; i < _scores.Length; i++)
+                int[] newscores = new int[_scores.Length + 1];
+                for (int i = 0; i < newscores.Length -1; i++)
                 {
                     newscores[i] = _scores[i];
                 }
@@ -93,32 +91,29 @@ namespace Lab_6
 
             public void Add(Team team)
             {
-                if (_teams == null || _teamsCount < 0 || _teamsCount >= _teams.Length) return;
+                if (_teams == null || _teamsCount >= _teams.Length) return;
                 _teams[_teamsCount++] = team;
             }
 
             public void Add(Team[] teams)
             {
-                if (_teams == null)
-                {
-                    _teams = new Team[12]; 
-                }
-                if (teams == null || _teams == null || teams.Length == 0) return;
+                
+                if (teams == null  _teams == null  teams.Length == 0) return;
 
-                foreach (var team in teams)
+                int count = 0;
+                while (_teamsCount < _teams.Length && count < teams.Length)
                 {
-                    if (_teamsCount >= _teams.Length) break;
-                    _teams[_teamsCount++] = team;
+                    _teams[_teamsCount++] = teams[count++];
                 }
             }
 
             public void Sort()
             {
-                if (_teams == null || _teamsCount <= 1) return;
+                if (_teams == null || _teams.Length ==0) return;
 
-                for (int i = 0; i < _teamsCount - 1; i++)
+                for (int i = 0; i < _teams.Length; i++)
                 {
-                    for (int j = 0; j < _teamsCount - i - 1; j++)
+                    for (int j = 0; j < _teams.Length - i - 1; j++)
                     {
                         if (_teams[j].TotalScore < _teams[j + 1].TotalScore)
                         {
