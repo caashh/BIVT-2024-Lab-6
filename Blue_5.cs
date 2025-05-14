@@ -47,36 +47,14 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null) return 0;
+                    if (_sportsmen == null || indexer == 0) return 0;
                     int summaryscore = 0;
-                    foreach (var sportsman in _sportsmen)
+                    for (int i = 0; i < indexer; i++)
                     {
-                        if (sportsman.Place == 1)
+                        if (_sportsmen[i].Place > 0 && _sportsmen[i].Place <= 5)
                         {
-                            summaryscore += 5;
-                            break;
+                            summaryscore += (6 - _sportsmen[i].Place);
                         }
-                        else if (sportsman.Place == 2)
-                        {
-                            summaryscore += 4;
-                            break;
-                        }
-                        else if (sportsman.Place == 3)
-                        {
-                            summaryscore += 3;
-                            break;
-                        }
-                        else if (sportsman.Place == 4)
-                        {
-                            summaryscore += 2;
-                            break;
-                        }
-                        else if (sportsman.Place == 5)
-                        {
-                            summaryscore += 1;
-                            break;
-                        }
-                        else break;
                     }
                     return summaryscore;
                 }
