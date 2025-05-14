@@ -11,7 +11,7 @@ namespace Lab_6
         {
             private string _name;
             private int[] _scores;
-            private int _scoresCount;
+
 
             public string Name { get { return _name; } }
             public int[] Scores
@@ -19,18 +19,21 @@ namespace Lab_6
                 get
                 {
                     if (_scores == null) return null;
-                    int[] result = new int[_scoresCount];
-                    Array.Copy(_scores, result, _scoresCount);
-                    return result;
+                    int[] newscores = new int[_scores.Length];
+                    for (int i = 0; i < _scores.Length; i++)
+                    {
+                        newscores[i] = _scores[i];
+                    }
+                    return newscores;
                 }
             }
             public int TotalScore
             {
                 get
                 {
-                    if (_scores == null || _scoresCount == 0) return 0;
+                    if (_scores == null) return 0;
                     int sum = 0;
-                    for (int i = 0; i < _scoresCount; i++)
+                    for (int i = 0; i < _scores.Length; i++)
                     {
                         sum += _scores[i];
                     }
@@ -42,7 +45,6 @@ namespace Lab_6
             {
                 _name = name;
                 _scores = new int[0];
-                _scoresCount = 0;
             }
 
             public void PlayMatch(int result)
@@ -50,7 +52,7 @@ namespace Lab_6
                 if (_scores == null) return;
 
                 int[] newscores = new int[_scores.Length + 1];
-                for (int i = 0; i < newscores.Length -1; i++)
+                for (int i = 0; i < newscores.Length - 1; i++)
                 {
                     newscores[i] = _scores[i];
                 }
@@ -71,16 +73,7 @@ namespace Lab_6
             private int _teamsCount;
 
             public string Name { get { return _name; } }
-            public Team[] Teams
-            {
-                get
-                {
-                    if (_teams == null) return null;
-                    Team[] result = new Team[_teamsCount];
-                    Array.Copy(_teams, result, _teamsCount);
-                    return result;
-                }
-            }
+            public Team[] Teams => _teams;
 
             public Group(string name)
             {
@@ -97,7 +90,7 @@ namespace Lab_6
 
             public void Add(Team[] teams)
             {
-                
+
                 if (teams == null || _teams == null || teams.Length == 0) return;
 
                 int count = 0;
@@ -109,7 +102,7 @@ namespace Lab_6
 
             public void Sort()
             {
-                if (_teams == null || _teams.Length ==0) return;
+                if (_teams == null || _teams.Length == 0) return;
 
                 for (int i = 0; i < _teams.Length; i++)
                 {
